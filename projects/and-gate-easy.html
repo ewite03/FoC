@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2: AND Gate - Easy Version</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .easy-container {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .gate-visual {
+            background: white;
+            border: 3px solid #6f42c1;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .line {
+            height: 3px;
+            background-color: #333;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+        .value {
+            background-color: #6f42c1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 0 0.5rem;
+        }
+        .gate-box {
+            display: inline-block;
+            width: 80px;
+            height: 60px;
+            border: 3px solid #6f42c1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #6f42c1;
+            margin: 0 1rem;
+        }
+        .selector {
+            margin: 1.5rem 0;
+        }
+        .selector label {
+            display: block;
+            margin: 1rem 0;
+            color: #5a32a3;
+            font-weight: bold;
+        }
+        .selector select {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border: 2px solid #6f42c1;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .result-box {
+            background-color: #fff4cc;
+            border-left: 5px solid #ffd700;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        .result-box p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 2: AND Gate - Easy Version</h2>
+            <p>Learn the AND gate by selecting input values. The AND gate only produces 1 when both inputs are 1.</p>
+            
+            <div class="easy-container">
+                <div class="selector">
+                    <label for="inputA">Input A:</label>
+                    <select id="inputA" onchange="updateGate()">
+                        <option value="0">0 (OFF)</option>
+                        <option value="1">1 (ON)</option>
+                    </select>
+                </div>
+                
+                <div class="selector">
+                    <label for="inputB">Input B:</label>
+                    <select id="inputB" onchange="updateGate()">
+                        <option value="0">0 (OFF)</option>
+                        <option value="1">1 (ON)</option>
+                    </select>
+                </div>
+                
+                <div class="gate-visual">
+                    <div style="text-align: left; display: inline-block;">
+                        <div class="line"><span id="display-a">0</span> ————</div>
+                        <div style="height: 40px;"></div>
+                        <div class="line"><span id="display-b">0</span> ————</div>
+                    </div>
+                    
+                    <div class="gate-box">AND</div>
+                    
+                    <div style="text-align: left; display: inline-block; margin-left: 1rem;">
+                        <div class="line">———— <span id="display-output">0</span></div>
+                    </div>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>Result: </strong><span id="result-text">0 AND 0 = 0</span></p>
+                    <p><strong>Explanation:</strong> <span id="explanation">Both inputs are 0, so the output is 0.</span></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        function updateGate() {
+            const a = parseInt(document.getElementById('inputA').value);
+            const b = parseInt(document.getElementById('inputB').value);
+            const output = (a && b) ? 1 : 0;
+            
+            document.getElementById('display-a').textContent = a;
+            document.getElementById('display-b').textContent = b;
+            document.getElementById('display-output').textContent = output;
+            
+            document.getElementById('result-text').textContent = a + ' AND ' + b + ' = ' + output;
+            
+            if (output === 1) {
+                document.getElementById('explanation').textContent = 'Both inputs are 1, so the output is 1!';
+            } else {
+                document.getElementById('explanation').textContent = 'At least one input is 0, so the output is 0.';
+            }
+        }
+    </script>
+</body>
+</html>

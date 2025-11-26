@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1: NOT Gate</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .project-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .input-section, .output-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #6f42c1;
+        }
+        .input-section h3, .output-section h3 {
+            color: #6f42c1;
+            margin-bottom: 1.5rem;
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        .logic-btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: white;
+            border: 3px solid #6f42c1;
+            color: #6f42c1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .logic-btn:hover {
+            background-color: #ffd700;
+            border-color: #ffd700;
+            color: #5a32a3;
+        }
+        .logic-btn.active {
+            background-color: #6f42c1;
+            color: white;
+        }
+        .output-display {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .output-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 1rem 0;
+        }
+        .logic-diagram {
+            text-align: center;
+            font-size: 2rem;
+            margin: 1rem 0;
+            color: #5a32a3;
+        }
+        @media (max-width: 768px) {
+            .project-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 1: NOT Gate</h2>
+            <p>The NOT gate is a basic logic gate that inverts the input. If the input is ON (1), the output is OFF (0), and vice versa.</p>
+            
+            <div class="project-container">
+                <div class="input-section">
+                    <h3>Input</h3>
+                    <div class="button-group">
+                        <button class="logic-btn" id="onBtn" onclick="setInput(1)">ON</button>
+                        <button class="logic-btn" id="offBtn" onclick="setInput(0)">OFF</button>
+                    </div>
+                </div>
+                
+                <div class="output-section">
+                    <h3>Output</h3>
+                    <div class="logic-diagram">1 ——— NOT ——— <span id="outputValue">1</span></div>
+                    <div class="output-display">
+                        <p>NOT Gate Output:</p>
+                        <div class="output-value" id="result">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 2rem; background-color: #fff4cc;">
+                <h3>How it works:</h3>
+                <ul>
+                    <li><strong>Input ON (1)</strong> → Output OFF (0)</li>
+                    <li><strong>Input OFF (0)</strong> → Output ON (1)</li>
+                </ul>
+                <p>Click the ON or OFF buttons to see how the NOT gate inverts the input!</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        let currentInput = 0;
+        
+        function setInput(value) {
+            currentInput = value;
+            const output = currentInput === 1 ? 0 : 1;
+            
+            document.getElementById('result').textContent = output;
+            document.getElementById('outputValue').textContent = output;
+            
+            if (value === 1) {
+                document.getElementById('onBtn').classList.add('active');
+                document.getElementById('offBtn').classList.remove('active');
+            } else {
+                document.getElementById('offBtn').classList.add('active');
+                document.getElementById('onBtn').classList.remove('active');
+            }
+        }
+        
+        setInput(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2: AND Gate</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .and-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .input-section, .output-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #6f42c1;
+        }
+        .input-section h3, .output-section h3 {
+            color: #6f42c1;
+            margin-bottom: 1.5rem;
+        }
+        .toggle-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 1rem auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            border: 3px solid #6f42c1;
+        }
+        .toggle-circle.off {
+            background-color: #dc3545;
+            color: white;
+        }
+        .toggle-circle.on {
+            background-color: #28a745;
+            color: white;
+        }
+        .input-label {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5a32a3;
+            margin-top: 0.5rem;
+        }
+        .input-row {
+            margin: 1.5rem 0;
+        }
+        .run-btn {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .run-btn:hover {
+            background-color: #ffd700;
+            color: #5a32a3;
+        }
+        .output-display {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .output-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6f42c1;
+        }
+        .truth-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .truth-table th, .truth-table td {
+            border: 2px solid #6f42c1;
+            padding: 0.75rem;
+            text-align: center;
+            background-color: white;
+        }
+        .truth-table th {
+            background-color: #6f42c1;
+            color: white;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .and-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 2: AND Gate</h2>
+            <p>The AND gate produces an output of 1 only when both inputs are 1. Otherwise, the output is 0.</p>
+            
+            <div class="and-container">
+                <div class="input-section">
+                    <h3>Inputs</h3>
+                    
+                    <div class="input-row">
+                        <div class="input-label">Input A</div>
+                        <div class="toggle-circle off" id="inputA" onclick="toggleA()">0</div>
+                    </div>
+                    
+                    <div class="input-row">
+                        <div class="input-label">Input B</div>
+                        <div class="toggle-circle off" id="inputB" onclick="toggleB()">0</div>
+                    </div>
+                    
+                    <button class="run-btn" onclick="calculate()">Calculate</button>
+                </div>
+                
+                <div class="output-section">
+                    <h3>Output</h3>
+                    <p style="text-align: center; color: #666;">Result of A AND B</p>
+                    <div class="output-display">
+                        <div class="output-value" id="output">0</div>
+                    </div>
+                    
+                    <h4 style="color: #6f42c1; margin-top: 1.5rem;">Truth Table:</h4>
+                    <table class="truth-table">
+                        <thead>
+                            <tr>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr style="background-color: #d4edda;">
+                                <td>1</td>
+                                <td>1</td>
+                                <td><strong>1</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        let valA = 0;
+        let valB = 0;
+        
+        function toggleA() {
+            valA = valA === 0 ? 1 : 0;
+            updateDisplay();
+        }
+        
+        function toggleB() {
+            valB = valB === 0 ? 1 : 0;
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            document.getElementById('inputA').textContent = valA;
+            document.getElementById('inputB').textContent = valB;
+            document.getElementById('inputA').classList.toggle('off');
+            document.getElementById('inputA').classList.toggle('on');
+            document.getElementById('inputB').classList.toggle('off');
+            document.getElementById('inputB').classList.toggle('on');
+        }
+        
+        function calculate() {
+            const result = valA && valB ? 1 : 0;
+            document.getElementById('output').textContent = result;
+        }
+    </script>
+</body>
+</html>

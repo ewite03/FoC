@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 5: Machine Language</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .ml-container {
+            margin: 2rem 0;
+        }
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .ml-btn {
+            padding: 1rem;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        .ml-btn:hover {
+            background-color: #ffd700;
+            color: #5a32a3;
+        }
+        .ml-btn.active {
+            background-color: #ffd700;
+            color: #5a32a3;
+            border: 3px solid #6f42c1;
+        }
+        .instruction-display {
+            background: white;
+            border: 2px solid #6f42c1;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+        .instruction-box {
+            background: #f8f9fa;
+            border-left: 5px solid #ffd700;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .instruction-code {
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 0.5rem 0;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .instruction-description {
+            color: #333;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        .operand {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .instruction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .instruction-table th, .instruction-table td {
+            border: 2px solid #6f42c1;
+            padding: 1rem;
+            text-align: left;
+            background-color: white;
+        }
+        .instruction-table th {
+            background-color: #6f42c1;
+            color: white;
+            font-weight: bold;
+        }
+        .instruction-table code {
+            background-color: #f8f9fa;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 5: A Simple Machine Language</h2>
+            <p>Learn about machine language instructions! Click on an instruction code to see what it does.</p>
+            
+            <div class="ml-container">
+                <div class="button-group">
+                    <button class="ml-btn active" onclick="showInstruction(0)">156C</button>
+                    <button class="ml-btn" onclick="showInstruction(1)">168D</button>
+                    <button class="ml-btn" onclick="showInstruction(2)">5056</button>
+                    <button class="ml-btn" onclick="showInstruction(3)">306E</button>
+                    <button class="ml-btn" onclick="showInstruction(4)">C000</button>
+                </div>
+                
+                <div class="instruction-display" id="instructionDisplay">
+                    <div class="instruction-box">
+                        <p style="font-size: 0.9rem; color: #666;">Op-code: <span class="instruction-code">1</span></p>
+                        <p style="font-size: 0.9rem; color: #666;">Operand: <span class="operand">RXY</span></p>
+                        <p style="font-weight: bold; color: #6f42c1; margin: 0.5rem 0 0 0;">LOAD reg. R from cell XY.</p>
+                        <div class="instruction-description">
+                            This instruction loads a value from memory cell XY into register R. For example, if you use 156C, it loads from cell 6C into register 1.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>All Machine Language Instructions</h3>
+                <table class="instruction-table">
+                    <thead>
+                        <tr>
+                            <th>Op-code</th>
+                            <th>Operand</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>1</code></td>
+                            <td>RXY</td>
+                            <td>LOAD reg. R from cell XY.</td>
+                        </tr>
+                        <tr>
+                            <td><code>2</code></td>
+                            <td>RXY</td>
+                            <td>LOAD reg. R with XY.</td>
+                        </tr>
+                        <tr>
+                            <td><code>3</code></td>
+                            <td>RXY</td>
+                            <td>STORE reg. R at XY.</td>
+                        </tr>
+                        <tr>
+                            <td><code>4</code></td>
+                            <td>0RS</td>
+                            <td>MOVE R to S.</td>
+                        </tr>
+                        <tr>
+                            <td><code>5</code></td>
+                            <td>RST</td>
+                            <td>ADD S and T into R. (2's comp.)</td>
+                        </tr>
+                        <tr>
+                            <td><code>6</code></td>
+                            <td>RST</td>
+                            <td>ADD S and T into R. (floating pt.)</td>
+                        </tr>
+                        <tr>
+                            <td><code>7</code></td>
+                            <td>RST</td>
+                            <td>OR S and T into R.</td>
+                        </tr>
+                        <tr>
+                            <td><code>8</code></td>
+                            <td>RST</td>
+                            <td>AND S and T into R.</td>
+                        </tr>
+                        <tr>
+                            <td><code>9</code></td>
+                            <td>RST</td>
+                            <td>XOR S and T into R.</td>
+                        </tr>
+                        <tr>
+                            <td><code>A</code></td>
+                            <td>R0X</td>
+                            <td>ROTATE reg. R X times.</td>
+                        </tr>
+                        <tr>
+                            <td><code>B</code></td>
+                            <td>RXY</td>
+                            <td>JUMP to XY if R = reg. 0.</td>
+                        </tr>
+                        <tr>
+                            <td><code>C</code></td>
+                            <td>000</td>
+                            <td>HALT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        const instructions = [
+            {
+                code: '1',
+                operand: 'RXY',
+                title: 'LOAD reg. R from cell XY.',
+                description: 'This instruction loads a value from memory cell XY into register R. For example, if you use 156C, it loads from cell 6C into register 1.'
+            },
+            {
+                code: '2',
+                operand: 'RXY',
+                title: 'LOAD reg. R with XY.',
+                description: 'This instruction loads the value XY directly into register R. For example, 168D loads the value 8D into register 1.'
+            },
+            {
+                code: '3',
+                operand: 'RXY',
+                title: 'STORE reg. R at XY.',
+                description: 'This instruction stores the value in register R into memory cell XY. For example, 5056 stores the value from register 5 into cell 56.'
+            },
+            {
+                code: '4',
+                operand: '0RS',
+                title: 'MOVE R to S.',
+                description: 'This instruction moves (copies) the value from register R to register S. For example, 306E copies from register 3 to register 0.'
+            },
+            {
+                code: 'C',
+                operand: '000',
+                title: 'HALT',
+                description: 'This instruction stops the program execution. C000 means "stop everything".'
+            }
+        ];
+        
+        function showInstruction(index) {
+            const inst = instructions[index];
+            const display = document.getElementById('instructionDisplay');
+            
+            display.innerHTML = `
+                <div class="instruction-box">
+                    <p style="font-size: 0.9rem; color: #666;">Op-code: <span class="instruction-code">${inst.code}</span></p>
+                    <p style="font-size: 0.9rem; color: #666;">Operand: <span class="operand">${inst.operand}</span></p>
+                    <p style="font-weight: bold; color: #6f42c1; margin: 0.5rem 0 0 0;">${inst.title}</p>
+                    <div class="instruction-description">
+                        ${inst.description}
+                    </div>
+                </div>
+            `;
+            
+            document.querySelectorAll('.ml-btn').forEach((btn, i) => {
+                btn.classList.remove('active');
+                if (i === index) btn.classList.add('active');
+            });
+        }
+    </script>
+</body>
+</html>

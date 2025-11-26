@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 4: UNICODE Converter</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .unicode-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .unicode-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid #6f42c1;
+        }
+        .unicode-box h3 {
+            color: #6f42c1;
+            margin-bottom: 1rem;
+        }
+        .input-group {
+            margin: 1rem 0;
+        }
+        .input-group label {
+            display: block;
+            color: #5a32a3;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #6f42c1;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .convert-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .convert-btn:hover {
+            background-color: #ffd700;
+            color: #5a32a3;
+        }
+        .result-display {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 1rem 0;
+        }
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .emoji-item {
+            background: white;
+            border: 2px solid #6f42c1;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .emoji-item:hover {
+            background-color: #ffd700;
+            border-color: #ffd700;
+        }
+        .emoji-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .emoji-code {
+            font-size: 0.9rem;
+            color: #5a32a3;
+            font-weight: bold;
+        }
+        .message {
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        @media (max-width: 768px) {
+            .unicode-container {
+                grid-template-columns: 1fr;
+            }
+            .emoji-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 4: UNICODE Converter</h2>
+            <p>UNICODE supports characters from around the world, including emojis! Enter a UNICODE code point (in hexadecimal) to see the character.</p>
+            
+            <div class="unicode-container">
+                <div class="unicode-box">
+                    <h3>Enter UNICODE Code Point</h3>
+                    <div class="input-group">
+                        <label for="unicodeInput">Enter hex code (e.g., 1F600):</label>
+                        <input type="text" id="unicodeInput" placeholder="1F600" value="1F600" onkeyup="convertUnicode()">
+                    </div>
+                    <button class="convert-btn" onclick="convertUnicode()">Convert</button>
+                </div>
+                
+                <div class="unicode-box">
+                    <h3>Result</h3>
+                    <div class="result-display">
+                        <p>Character:</p>
+                        <div class="result-value" id="unicodeResult">😀</div>
+                        <p id="unicodeMessage" class="message">Valid code point!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>Popular UNICODE Emojis</h3>
+                <p style="color: #666; margin-bottom: 1rem;">Click any emoji to see its code point:</p>
+                <div class="emoji-grid">
+                    <div class="emoji-item" onclick="showEmoji('😀', '1F600')">
+                        <div class="emoji-icon">😀</div>
+                        <div class="emoji-code">1F600</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('😂', '1F602')">
+                        <div class="emoji-icon">😂</div>
+                        <div class="emoji-code">1F602</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('❤️', '2764')">
+                        <div class="emoji-icon">❤️</div>
+                        <div class="emoji-code">2764</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('🎉', '1F389')">
+                        <div class="emoji-icon">🎉</div>
+                        <div class="emoji-code">1F389</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('🚀', '1F680')">
+                        <div class="emoji-icon">🚀</div>
+                        <div class="emoji-code">1F680</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('🌟', '1F31F')">
+                        <div class="emoji-icon">🌟</div>
+                        <div class="emoji-code">1F31F</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('👍', '1F44D')">
+                        <div class="emoji-icon">👍</div>
+                        <div class="emoji-code">1F44D</div>
+                    </div>
+                    <div class="emoji-item" onclick="showEmoji('🌍', '1F30D')">
+                        <div class="emoji-icon">🌍</div>
+                        <div class="emoji-code">1F30D</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        function convertUnicode() {
+            const input = document.getElementById('unicodeInput').value.trim();
+            const message = document.getElementById('unicodeMessage');
+            
+            try {
+                const codePoint = parseInt(input, 16);
+                if (isNaN(codePoint) || codePoint < 0 || codePoint > 0x10FFFF) {
+                    message.textContent = 'Invalid Unicode code point';
+                    message.className = 'message error';
+                    return;
+                }
+                
+                const char = String.fromCodePoint(codePoint);
+                document.getElementById('unicodeResult').textContent = char;
+                message.textContent = 'Valid code point!';
+                message.className = 'message';
+            } catch (e) {
+                message.textContent = 'Error: Invalid input';
+                message.className = 'message error';
+            }
+        }
+        
+        function showEmoji(emoji, code) {
+            document.getElementById('unicodeInput').value = code;
+            convertUnicode();
+        }
+    </script>
+</body>
+</html>

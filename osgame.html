@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS History Game - Fundamentals of Computing</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .game-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .game-intro-screen {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+            color: white;
+            border-radius: 15px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .game-intro-screen h3 {
+            color: #ffd700;
+            font-size: 2.5rem;
+            margin: 1rem 0;
+        }
+
+        .game-intro-screen p {
+            color: white;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .play-btn {
+            background-color: #ffd700;
+            color: #5a32a3;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .game-screen {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #6f42c1;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6f42c1 0%, #ffd700 100%);
+            width: 25%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #6f42c1;
+        }
+
+        .streak {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #5a32a3;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-left: 1rem;
+            font-weight: bold;
+        }
+
+        .game-question {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid #6f42c1;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #333;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .game-options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-options button {
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            border: 2px solid #6f42c1;
+            background-color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-options button:hover {
+            background-color: #ffd700;
+            border-color: #ffd700;
+            color: #5a32a3;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
+        }
+
+        .game-options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback-message {
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            animation: popIn 0.4s ease;
+        }
+
+        .feedback-message.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .feedback-message.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .game-end-screen {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+            color: white;
+            border-radius: 15px;
+            animation: slideIn 0.5s ease;
+            display: none;
+        }
+
+        .final-score {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 1rem 0;
+        }
+
+        .score-message {
+            font-size: 1.3rem;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+        }
+
+        .play-again-btn {
+            background-color: #ffd700;
+            color: #5a32a3;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6f42c1;
+            margin-bottom: 1.5rem;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid #6f42c1;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745 0%, #ffc107 50%, #dc3545 100%);
+            width: 100%;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="course.html">Course</a></li>
+            <li><a href="project.html">Projects</a></li>
+            <li><a href="concepts.html">Concepts</a></li>
+            <li><a href="databases.html">Databases</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="devteam.html">Dev Team</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="api.html">API Calls</a></li>
+            <li><a href="osgame.html" class="active">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <h2>Operating Systems History Quiz</h2>
+            
+            <div class="game-container">
+                <div id="game-intro" class="game-intro-screen">
+                    <h3>🖥️ OS HISTORY QUEST 🖥️</h3>
+                    <p>Test your knowledge about the history of Operating Systems!</p>
+                    <p>Answer 5 questions correctly to complete the challenge!</p>
+                    <p>You have limited time for each question!</p>
+                    <button class="play-btn" onclick="startGame()">START GAME</button>
+                </div>
+                
+                <div id="game-screen" class="game-screen">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill">25%</div>
+                        </div>
+                    </div>
+
+                    <div class="score-display">
+                        Score: <span id="current-score">0</span>/5
+                        <span class="streak" id="streak" style="display: none;"> Streak: <span id="streak-count">0</span></span>
+                    </div>
+
+                    <div class="timer">
+                         Time: <span id="timer-text">10</span>s
+                    </div>
+
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timer-fill"></div>
+                    </div>
+
+                    <div class="game-question" id="question"></div>
+                    <div class="game-options" id="options"></div>
+                    <div id="feedback"></div>
+                </div>
+                
+                <div id="game-end" class="game-end-screen">
+                    <h3> GAME COMPLETE! </h3>
+                    <div class="final-score" id="final-score">0/5</div>
+                    <div class="score-message" id="result-message"></div>
+                    <button class="play-again-btn" onclick="location.reload()">PLAY AGAIN</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <h3>What is an Operating System?</h3>
+            <p>An Operating System (OS) is software that manages computer hardware and software resources. It provides services for computer programs and acts as an intermediary between users and the computer hardware.</p>
+            
+            <h3>Examples of Operating Systems:</h3>
+            <ul>
+                <li>Windows</li>
+                <li>macOS</li>
+                <li>Linux</li>
+                <li>Android</li>
+                <li>iOS</li>
+            </ul>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

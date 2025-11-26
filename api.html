@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Calls - Fundamentals of Computing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="course.html">Course</a></li>
+            <li><a href="project.html">Projects</a></li>
+            <li><a href="concepts.html">Concepts</a></li>
+            <li><a href="databases.html">Databases</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="devteam.html">Dev Team</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="api.html" class="active">API Calls</a></li>
+            <li><a href="osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <h2>API Calls Demonstration</h2>
+            <p>This page demonstrates how to make API calls using JavaScript to fetch data from external sources.</p>
+            
+            <h3>Random Joke API</h3>
+            <p>Click the button below to fetch a random joke from an API:</p>
+            
+            <button class="btn" onclick="fetchJoke()">Get Random Joke</button>
+            
+            <div id="joke-result" class="result" style="display: none; background-color: white; color: #333; border: 2px solid #6f42c1;"></div>
+        </div>
+
+        <div class="content-box">
+            <h2>How It Works</h2>
+            <p>This demonstration uses the JavaScript <code>fetch()</code> function to make an API call to get data from an external server.</p>
+            
+            <h3>Basic API Call Structure:</h3>
+            <pre style="background-color: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;">
+fetch('API_URL')
+  .then(response => response.json())
+  .then(data => {
+    // Use the data here
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+            </pre>
+            
+            <h3>What is an API?</h3>
+            <p>API stands for Application Programming Interface. It allows different software applications to communicate with each other and share data.</p>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

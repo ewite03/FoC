@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 3: Binary to Hexadecimal</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .converter-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .converter-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid #6f42c1;
+        }
+        .converter-box h3 {
+            color: #6f42c1;
+            margin-bottom: 1rem;
+        }
+        .input-group {
+            margin: 1rem 0;
+        }
+        .input-group label {
+            display: block;
+            color: #5a32a3;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #6f42c1;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #ffd700;
+            color: #5a32a3;
+        }
+        .result-display {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 1rem 0;
+        }
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .reference-table th, .reference-table td {
+            border: 1px solid #6f42c1;
+            padding: 0.5rem;
+            text-align: center;
+            background-color: white;
+        }
+        .reference-table th {
+            background-color: #6f42c1;
+            color: white;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .converter-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 3: Binary to Hexadecimal Converter</h2>
+            <p>Convert binary numbers to hexadecimal. A 4-digit binary number equals one hexadecimal digit.</p>
+            
+            <div class="converter-container">
+                <div class="converter-box">
+                    <h3>Input</h3>
+                    <div class="input-group">
+                        <label for="binaryInput">Enter a 4-digit binary number:</label>
+                        <input type="text" id="binaryInput" placeholder="1111" value="1111" onkeyup="convert()">
+                    </div>
+                    <button class="submit-btn" onclick="convert()">Convert</button>
+                </div>
+                
+                <div class="converter-box">
+                    <h3>Output</h3>
+                    <div class="result-display">
+                        <p>Hexadecimal Value:</p>
+                        <div class="result-value" id="hexOutput">F</div>
+                        <p id="message" class="success">Valid input!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>Binary to Hexadecimal Reference Table</h3>
+                <table class="reference-table">
+                    <thead>
+                        <tr>
+                            <th>Decimal</th>
+                            <th>Hexadecimal</th>
+                            <th>Binary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>0</td><td>0000</td></tr>
+                        <tr><td>1</td><td>1</td><td>0001</td></tr>
+                        <tr><td>2</td><td>2</td><td>0010</td></tr>
+                        <tr><td>3</td><td>3</td><td>0011</td></tr>
+                        <tr><td>4</td><td>4</td><td>0100</td></tr>
+                        <tr><td>5</td><td>5</td><td>0101</td></tr>
+                        <tr><td>6</td><td>6</td><td>0110</td></tr>
+                        <tr><td>7</td><td>7</td><td>0111</td></tr>
+                        <tr><td>8</td><td>8</td><td>1000</td></tr>
+                        <tr><td>9</td><td>9</td><td>1001</td></tr>
+                        <tr><td>10</td><td>A</td><td>1010</td></tr>
+                        <tr><td>11</td><td>B</td><td>1011</td></tr>
+                        <tr><td>12</td><td>C</td><td>1100</td></tr>
+                        <tr><td>13</td><td>D</td><td>1101</td></tr>
+                        <tr><td>14</td><td>E</td><td>1110</td></tr>
+                        <tr><td>15</td><td>F</td><td>1111</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        function convert() {
+            const binary = document.getElementById('binaryInput').value;
+            const message = document.getElementById('message');
+            
+            if (!/^[01]{4}$/.test(binary)) {
+                message.textContent = 'Please enter exactly 4 binary digits (0 or 1)';
+                message.className = 'error';
+                return;
+            }
+            
+            const decimal = parseInt(binary, 2);
+            const hex = decimal.toString(16).toUpperCase();
+            
+            document.getElementById('hexOutput').textContent = hex;
+            message.textContent = 'Valid input!';
+            message.className = 'success';
+        }
+    </script>
+</body>
+</html>

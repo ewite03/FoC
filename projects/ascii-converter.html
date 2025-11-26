@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 4: ASCII Converter</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .ascii-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .ascii-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid #6f42c1;
+        }
+        .ascii-box h3 {
+            color: #6f42c1;
+            margin-bottom: 1rem;
+        }
+        .input-group {
+            margin: 1rem 0;
+        }
+        .input-group label {
+            display: block;
+            color: #5a32a3;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #6f42c1;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .convert-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .convert-btn:hover {
+            background-color: #ffd700;
+            color: #5a32a3;
+        }
+        .result-display {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 1rem 0;
+        }
+        .ascii-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .ascii-table th, .ascii-table td {
+            border: 1px solid #6f42c1;
+            padding: 0.5rem;
+            text-align: center;
+            background-color: white;
+        }
+        .ascii-table th {
+            background-color: #6f42c1;
+            color: white;
+            font-weight: bold;
+        }
+        .message {
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+        }
+        @media (max-width: 768px) {
+            .ascii-container {
+                grid-template-columns: 1fr;
+            }
+            .ascii-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fundamentals of Computing</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../course.html">Course</a></li>
+            <li><a href="../project.html">Projects</a></li>
+            <li><a href="../concepts.html">Concepts</a></li>
+            <li><a href="../databases.html">Databases</a></li>
+            <li><a href="../documentation.html">Documentation</a></li>
+            <li><a href="../devteam.html">Dev Team</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../api.html">API Calls</a></li>
+            <li><a href="../osgame.html">OS Game</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="content-box">
+            <a href="../project.html" style="color: #6f42c1; text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Projects</a>
+            
+            <h2>Project 4: ASCII Converter</h2>
+            <p>Convert between characters and their ASCII numeric codes. Enter a number (0-127) or a character to see the conversion.</p>
+            
+            <div class="ascii-container">
+                <div class="ascii-box">
+                    <h3>Enter ASCII Code</h3>
+                    <div class="input-group">
+                        <label for="asciiCode">Enter a number (0-127):</label>
+                        <input type="number" id="asciiCode" placeholder="65" min="0" max="127" value="65" onkeyup="convertFromCode()">
+                    </div>
+                    <button class="convert-btn" onclick="convertFromCode()">Convert</button>
+                </div>
+                
+                <div class="ascii-box">
+                    <h3>Result</h3>
+                    <div class="result-display">
+                        <p>Character:</p>
+                        <div class="result-value" id="charResult">A</div>
+                        <p id="message1" class="message success">Valid!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>Common ASCII Characters (0-127)</h3>
+                <table class="ascii-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Character</th>
+                            <th>Code</th>
+                            <th>Character</th>
+                            <th>Code</th>
+                            <th>Character</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>32</td><td>SPACE</td><td>65</td><td>A</td><td>97</td><td>a</td></tr>
+                        <tr><td>48</td><td>0</td><td>66</td><td>B</td><td>98</td><td>b</td></tr>
+                        <tr><td>49</td><td>1</td><td>67</td><td>C</td><td>99</td><td>c</td></tr>
+                        <tr><td>50</td><td>2</td><td>90</td><td>Z</td><td>122</td><td>z</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Powered by EW</p>
+    </footer>
+    
+    <script>
+        function convertFromCode() {
+            const code = parseInt(document.getElementById('asciiCode').value);
+            const message = document.getElementById('message1');
+            
+            if (isNaN(code) || code < 0 || code > 127) {
+                message.textContent = 'Please enter a number between 0 and 127';
+                message.className = 'message error';
+                return;
+            }
+            
+            const char = String.fromCharCode(code);
+            document.getElementById('charResult').textContent = char === ' ' ? 'SPACE' : char;
+            message.textContent = 'Valid!';
+            message.className = 'message success';
+        }
+    </script>
+</body>
+</html>
